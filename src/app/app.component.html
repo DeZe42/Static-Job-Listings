@@ -2,11 +2,12 @@
   <div class="static-job__header"></div>
   <div class="static-job__filter-container" *ngIf="filterData.length != 0">
     <div class="static-job__filter-container--filter" *ngFor="let element of filterData">
-      <span>{{ element }}</span>
+      <span>{{ element.name }}</span>
       <div class="close" (click)="remove(element)">
         <img src="assets/images/icon-remove.svg">
       </div>
     </div>
+    <span class="static-job__filter-container--clear" (click)="clear()">Clear</span>
   </div>
   <div class="static-job__content">
     <div class="static-job__content--card" *ngFor="let job of filteredJobs">
@@ -26,18 +27,6 @@
         </div>
         <div class="column__row">
           <span class="column__row--position">{{ job.position }}</span>
-          <div class="column__row--attribute" (click)="filter(job.role)">
-            <span>{{ job.role }}</span>
-          </div>
-          <div class="column__row--attribute" (click)="filter(job.level)">
-            <span>{{ job.level }}</span>
-          </div>
-          <div class="column__row--attribute" *ngFor="let language of job.languages" (click)="filter(language)">
-            <span>{{ language }}</span>
-          </div>
-          <div class="column__row--attribute" *ngFor="let tool of job.tools" (click)="filter(tool)">
-            <span>{{ tool }}</span>
-          </div>
         </div>
         <div class="column__row">
           <span class="column__row--bottom">{{ job.postedAt }}</span>
@@ -45,6 +34,21 @@
           <span class="column__row--bottom">{{ job.contract }}</span>
           <div class="column__row--dot"></div>
           <span class="column__row--bottom">{{ job.location }}</span>
+        </div>
+      </div>
+      <div class="lines"></div>
+      <div class="row">
+        <div class="row--attribute" (click)="filter('role', job.role)">
+          <span>{{ job.role }}</span>
+        </div>
+        <div class="row--attribute" (click)="filter('level', job.level)">
+          <span>{{ job.level }}</span>
+        </div>
+        <div class="row--attribute" *ngFor="let language of job.languages" (click)="filter('languages', language)">
+          <span>{{ language }}</span>
+        </div>
+        <div class="row--attribute" *ngFor="let tool of job.tools" (click)="filter('tools', tool)">
+          <span>{{ tool }}</span>
         </div>
       </div>
     </div>

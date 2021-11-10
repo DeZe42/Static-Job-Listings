@@ -9,6 +9,7 @@ $cyan: rgba(76, 177, 179, 0.68);
     flex-direction: column;
     font-family: 'Spartan', sans-serif;
     position: relative;
+    overflow-y: hidden;
     &__header {
         height: 150px;
         background: url("../assets/images/bg-header-desktop.svg");
@@ -18,6 +19,7 @@ $cyan: rgba(76, 177, 179, 0.68);
     }
     &__filter-container {
         display: flex;
+        align-items: center;
         max-width: 1440px;
         width: 100%;
         margin: 0 auto;
@@ -55,6 +57,17 @@ $cyan: rgba(76, 177, 179, 0.68);
                 }
             }
         }
+        &--clear {
+            font-size: 16px;
+            line-height: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            color: $cyan;
+            margin: 0 0 0 auto;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
     &__content {
         display: flex;
@@ -63,6 +76,8 @@ $cyan: rgba(76, 177, 179, 0.68);
         background-color: $light-grayish-cyan-background;
         box-sizing: border-box;
         padding: 100px 0;
+        height: calc(100vh - 150px);
+        overflow-y: auto;
         &--card {
             display: flex;
             border-radius: 8px;
@@ -86,11 +101,11 @@ $cyan: rgba(76, 177, 179, 0.68);
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                width: 100%;
                 margin: 32px 32px 32px 0;
                 &__row {
                     display: flex;
                     align-items: center;
+                    margin: 0 0 12px 0;
                     &--company {
                         font-size: 16px;
                         line-height: 16px;
@@ -135,30 +150,6 @@ $cyan: rgba(76, 177, 179, 0.68);
                             color: $cyan;
                         }
                     }
-                    &--attribute {
-                        display: flex;
-                        box-sizing: border-box;
-                        padding: 8px;
-                        background-color: $light-grayish-cyan-text;
-                        margin: 0 24px 0 0;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        &:hover {
-                            background-color: $cyan;
-                            span {
-                                color: $light-grayish-cyan-text;
-                            }
-                        }
-                        &:last-child {
-                            margin: 0;
-                        }
-                        span {
-                            color: $cyan;
-                            font-size: 16px;
-                            line-height: 18px;
-                            font-weight: bold;
-                        }
-                    }
                     &--bottom {
                         font-size: 14px;
                         line-height: 16px;
@@ -167,10 +158,83 @@ $cyan: rgba(76, 177, 179, 0.68);
                     &--dot {
                         width: 5px;
                         height: 5px;
+                        min-width: 5px;
+                        min-height: 5px;
                         border-radius: 50%;
                         margin: 0 24px;
                         background-color: $dark-grayish-cyan;
                     }
+                }
+            }
+            .lines {
+                display: none;
+            }
+            .row {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 24px;
+                margin: 32px 32px 32px auto;
+                &--attribute {
+                    display: flex;
+                    box-sizing: border-box;
+                    padding: 8px;
+                    background-color: $light-grayish-cyan-text;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: $cyan;
+                        span {
+                            color: $light-grayish-cyan-text;
+                        }
+                    }
+                    &:last-child {
+                        margin: 0;
+                    }
+                    span {
+                        color: $cyan;
+                        font-size: 16px;
+                        line-height: 18px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1472px) {
+    .static-job {
+        &__filter-container {
+            width: calc(100vw - 64px);
+            left: 32px;
+        }
+        &__content {
+            padding: 100px 32px;
+        }
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .static-job {
+        &__content {
+            gap: 64px;
+            &--card {
+                flex-direction: column;
+                .image {
+                    margin: -48px 32px 0 32px;
+                }
+                .column {
+                    margin: 32px;
+                }
+                .lines {
+                    display: inline-block;
+                    height: 2px;
+                    background-color: $light-grayish-cyan-text;
+                    margin: 0 32px;
+                }
+                .row {
+                    margin: 32px;
                 }
             }
         }

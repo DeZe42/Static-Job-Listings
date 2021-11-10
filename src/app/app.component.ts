@@ -36,33 +36,45 @@ export class AppComponent implements OnInit {
     this.filteredJobs = this.jobs;
   }
 
-  filter(element) {
+  filter(key, value) {
     if (this.filterData.length == 0) {
-      this.filterData.push(element);
+      this.filterData.push({ type: key, name: value });
     } else {
-     if (!this.filterData.includes(element)) {
-      this.filterData.push(element);
-     }
+      let found = false;
+      for (let i = 0; i < this.filterData.length; i++) {
+        if (this.filterData[i].name == value) {
+          found = true;
+          break;
+        }
+      }
+      if (found == false) {
+        this.filterData.push({ type: key, name: value });
+      }
     }
-    this.filteredJobs = this.jobs.filter(e => {
-      return this.filterData.find(f => {
-        return e.languages.includes(f);
-      });
-    });
+    this.filteredJobs = this.multipleFilter(this.jobs, this.filterData);
   }
 
-  remove(element) {
+  remove(value) {
     this.filterData = this.filterData.filter(e => {
-      return e != element;
+      return e != value;
     });
     if (this.filterData.length == 0) {
       this.filteredJobs = this.jobs;
     } else {
-      this.filteredJobs = this.jobs.filter(e => {
-        return this.filterData.find(f => {
-          return e.role == f && e.level == f && e.languages.includes(f);
-        });
-      });
+      this.filteredJobs = this.multipleFilter(this.jobs, this.filterData);
     }
+  }
+
+  multipleFilter(jobs, filters) {
+    return jobs.filter(element => {
+      return filters.every(val => {
+        return element[val.type] === val.name || element[val.type].includes(val.name);
+      });
+    });
+  }
+
+  clear() {
+    this.filterData = [];
+    this.filteredJobs = this.jobs;
   }
 }
